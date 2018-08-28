@@ -10,7 +10,7 @@ function Mql(targetWindow, query, values) {
   const currentWindow = targetWindow || window
   const self = this
   let mql
-  if (currentWindow) {
+  if (currentWindow && currentWindow.matchMedia) {
     mql = currentWindow.matchMedia.call(currentWindow, query)
     this.matches = mql.matches
     this.media = mql.media

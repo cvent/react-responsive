@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import matchMedia from './matchMedia'
 import hyphenate  from 'hyphenate-style-name'
@@ -11,7 +12,8 @@ const defaultTypes = {
   values: PropTypes.shape(mediaQuery.matchers),
   children: PropTypes.oneOfType([ PropTypes.node, PropTypes.func ]),
   onChange: PropTypes.func,
-  onBeforeChange: PropTypes.func
+  onBeforeChange: PropTypes.func,
+  targetWindow: PropTypes.object
 }
 const mediaKeys = Object.keys(mediaQuery.all)
 const excludedQueryKeys = Object.keys(defaultTypes)
@@ -34,7 +36,9 @@ export default class MediaQuery extends React.Component {
   componentWillMount() {
     this.updateQuery(this.props)
   }
-
+  componentDidMount() {
+    this.updateQuery(this.props)
+  }
   componentWillReceiveProps(nextProps) {
     this.updateQuery(nextProps)
   }
@@ -60,8 +64,9 @@ export default class MediaQuery extends React.Component {
     }
 
     this.removeMql()
-
-    this._mql = matchMedia(props.targetWindow, this.query, values)
+    const node = ReactDOM.findDOMNode(this)
+    const targetWindow = node && node.ownerDocument.defaultView
+    this._mql = matchMedia(props.targetWindow || targetWindow, this.query, values)
     this._mql.addListener(this.updateMatches)
     this.updateMatches()
   }

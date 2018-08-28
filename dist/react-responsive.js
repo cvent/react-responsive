@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"));
+		module.exports = factory(require("react"), require("react-dom"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react"], factory);
+		define(["react", "react-dom"], factory);
 	else if(typeof exports === 'object')
-		exports["MediaQuery"] = factory(require("react"));
+		exports["MediaQuery"] = factory(require("react"), require("react-dom"));
 	else
-		root["MediaQuery"] = factory(root["react"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_13__) {
+		root["MediaQuery"] = factory(root["react"], root["react-dom"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_13__, __WEBPACK_EXTERNAL_MODULE_14__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -68,6 +68,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactDom = __webpack_require__(14);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
 	var _propTypes = __webpack_require__(5);
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -102,7 +106,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  values: _propTypes2.default.shape(_mediaQuery2.default.matchers),
 	  children: _propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.func]),
 	  onChange: _propTypes2.default.func,
-	  onBeforeChange: _propTypes2.default.func
+	  onBeforeChange: _propTypes2.default.func,
+	  targetWindow: _propTypes2.default.object
 	};
 	var mediaKeys = Object.keys(_mediaQuery2.default.all);
 	var excludedQueryKeys = Object.keys(defaultTypes);
@@ -151,6 +156,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this.updateQuery(this.props);
 	    }
 	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.updateQuery(this.props);
+	    }
+	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
 	      this.updateQuery(nextProps);
@@ -177,8 +187,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	
 	      this.removeMql();
-	
-	      this._mql = (0, _matchMedia2.default)(props.targetWindow, this.query, values);
+	      var node = _reactDom2.default.findDOMNode(this);
+	      var targetWindow = node && node.ownerDocument.defaultView;
+	      this._mql = (0, _matchMedia2.default)(props.targetWindow || targetWindow, this.query, values);
 	      this._mql.addListener(this.updateMatches);
 	      this.updateMatches();
 	    }
@@ -616,7 +627,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var currentWindow = targetWindow || window;
 	  var self = this;
 	  var mql = void 0;
-	  if (currentWindow) {
+	  if (currentWindow && currentWindow.matchMedia) {
 	    mql = currentWindow.matchMedia.call(currentWindow, query);
 	    this.matches = mql.matches;
 	    this.media = mql.media;
@@ -1710,6 +1721,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_13__;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_14__;
 
 /***/ })
 /******/ ])
