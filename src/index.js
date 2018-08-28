@@ -1,10 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import matchMedia from 'matchmediaquery'
+import matchMedia from './matchMedia'
 import hyphenate  from 'hyphenate-style-name'
 import mediaQuery from './mediaQuery'
 import toQuery  from './toQuery'
-
 
 const defaultTypes = {
   component: PropTypes.node,
@@ -62,7 +61,7 @@ export default class MediaQuery extends React.Component {
 
     this.removeMql()
 
-    this._mql = matchMedia(this.query, values)
+    this._mql = matchMedia(props.targetWindow, this.query, values)
     this._mql.addListener(this.updateMatches)
     this.updateMatches()
   }
