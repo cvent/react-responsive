@@ -1,6 +1,6 @@
 !function(root, factory) {
-    "object" == typeof exports && "object" == typeof module ? module.exports = factory(require("react")) : "function" == typeof define && define.amd ? define([ "react" ], factory) : "object" == typeof exports ? exports.MediaQuery = factory(require("react")) : root.MediaQuery = factory(root.react);
-}("undefined" != typeof self ? self : this, function(__WEBPACK_EXTERNAL_MODULE_5__) {
+    "object" == typeof exports && "object" == typeof module ? module.exports = factory(require("react"), require("react-dom")) : "function" == typeof define && define.amd ? define([ "react", "react-dom" ], factory) : "object" == typeof exports ? exports.MediaQuery = factory(require("react"), require("react-dom")) : root.MediaQuery = factory(root.react, root["react-dom"]);
+}("undefined" != typeof self ? self : this, function(__WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_6__) {
     return function(modules) {
         function __webpack_require__(moduleId) {
             if (installedModules[moduleId]) return installedModules[moduleId].exports;
@@ -34,7 +34,7 @@
         var REACT_ELEMENT_TYPE = "function" == typeof Symbol && Symbol.for && Symbol.for("react.element") || 60103, isValidElement = function(object) {
             return "object" == typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
         };
-        module.exports = __webpack_require__(6)(isValidElement, !0);
+        module.exports = __webpack_require__(7)(isValidElement, !0);
     }, function(module, exports, __webpack_require__) {
         "use strict";
         module.exports = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
@@ -165,13 +165,14 @@
                 for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
             }
             return target;
-        }, _react = __webpack_require__(5), _react2 = _interopRequireDefault(_react), _propTypes = __webpack_require__(0), _propTypes2 = _interopRequireDefault(_propTypes), _matchmediaquery = __webpack_require__(9), _matchmediaquery2 = _interopRequireDefault(_matchmediaquery), _hyphenateStyleName = __webpack_require__(2), _hyphenateStyleName2 = _interopRequireDefault(_hyphenateStyleName), _mediaQuery = __webpack_require__(3), _mediaQuery2 = _interopRequireDefault(_mediaQuery), _toQuery = __webpack_require__(11), _toQuery2 = _interopRequireDefault(_toQuery), defaultTypes = {
+        }, _react = __webpack_require__(5), _react2 = _interopRequireDefault(_react), _reactDom = __webpack_require__(6), _reactDom2 = _interopRequireDefault(_reactDom), _propTypes = __webpack_require__(0), _propTypes2 = _interopRequireDefault(_propTypes), _matchMedia = __webpack_require__(10), _matchMedia2 = _interopRequireDefault(_matchMedia), _hyphenateStyleName = __webpack_require__(2), _hyphenateStyleName2 = _interopRequireDefault(_hyphenateStyleName), _mediaQuery = __webpack_require__(3), _mediaQuery2 = _interopRequireDefault(_mediaQuery), _toQuery = __webpack_require__(12), _toQuery2 = _interopRequireDefault(_toQuery), defaultTypes = {
             component: _propTypes2.default.node,
             query: _propTypes2.default.string,
             values: _propTypes2.default.shape(_mediaQuery2.default.matchers),
             children: _propTypes2.default.oneOfType([ _propTypes2.default.node, _propTypes2.default.func ]),
             onChange: _propTypes2.default.func,
-            onBeforeChange: _propTypes2.default.func
+            onBeforeChange: _propTypes2.default.func,
+            targetWindow: _propTypes2.default.object
         }, mediaKeys = Object.keys(_mediaQuery2.default.all), excludedQueryKeys = Object.keys(defaultTypes), excludedPropKeys = excludedQueryKeys.concat(mediaKeys), MediaQuery = function(_React$Component) {
             function MediaQuery() {
                 var _ref, _temp, _this, _ret;
@@ -194,6 +195,11 @@
                     this.updateQuery(this.props);
                 }
             }, {
+                key: "componentDidMount",
+                value: function() {
+                    this.updateQuery(this.props);
+                }
+            }, {
                 key: "componentWillReceiveProps",
                 value: function(nextProps) {
                     this.updateQuery(nextProps);
@@ -206,9 +212,10 @@
                     !this.query) throw new Error("Invalid or missing MediaQuery!");
                     props.values && (values = Object.keys(props.values).reduce(function(result, key) {
                         return result[(0, _hyphenateStyleName2.default)(key)] = props.values[key], result;
-                    }, {}), 0 !== Object.keys(values).length && (forceStatic = !0)), this.removeMql(), 
-                    this._mql = (0, _matchmediaquery2.default)(this.query, values, forceStatic), this._mql.addListener(this.updateMatches), 
-                    this.updateMatches();
+                    }, {}), 0 !== Object.keys(values).length && (forceStatic = !0)), this.removeMql();
+                    var node = _reactDom2.default.findDOMNode(this), targetWindow = node && node.ownerDocument.defaultView;
+                    this._mql = (0, _matchMedia2.default)(this.query, values, forceStatic, props.targetWindow || targetWindow), 
+                    this._mql.addListener(this.updateMatches), this.updateMatches();
                 }
             }, {
                 key: "componentWillUpdate",
@@ -240,12 +247,14 @@
         }, exports.default = MediaQuery, exports.toQuery = _toQuery2.default;
     }, function(module, exports) {
         module.exports = __WEBPACK_EXTERNAL_MODULE_5__;
+    }, function(module, exports) {
+        module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
     }, function(module, exports, __webpack_require__) {
         "use strict";
         function emptyFunctionThatReturnsNull() {
             return null;
         }
-        var assign = __webpack_require__(7), ReactPropTypesSecret = __webpack_require__(1), checkPropTypes = __webpack_require__(8), printWarning = function() {};
+        var assign = __webpack_require__(8), ReactPropTypesSecret = __webpack_require__(1), checkPropTypes = __webpack_require__(9), printWarning = function() {};
         printWarning = function(text) {
             var message = "Warning: " + text;
             "undefined" != typeof console && console.error(message);
@@ -554,7 +563,7 @@ object-assign
         }, module.exports = checkPropTypes;
     }, function(module, exports, __webpack_require__) {
         "use strict";
-        function Mql(query, values, forceStatic) {
+        function Mql(query, values, forceStatic, targetWindow) {
             function addListener(listener) {
                 mql && mql.addListener(listener);
             }
@@ -567,17 +576,17 @@ object-assign
             function dispose() {
                 mql && mql.removeListener(update);
             }
-            var self = this;
+            var self = this, currentWindow = targetWindow || window, dynamicMatch = void 0 !== currentWindow ? currentWindow.matchMedia : null;
             if (dynamicMatch && !forceStatic) {
-                var mql = dynamicMatch.call(window, query);
+                var mql = dynamicMatch.call(currentWindow, query);
                 this.matches = mql.matches, this.media = mql.media, mql.addListener(update);
             } else this.matches = staticMatch(query, values), this.media = query;
             this.addListener = addListener, this.removeListener = removeListener, this.dispose = dispose;
         }
-        function matchMedia(query, values, forceStatic) {
-            return new Mql(query, values, forceStatic);
+        function matchMedia(query, values, forceStatic, targetWindow) {
+            return new Mql(query, values, forceStatic, targetWindow);
         }
-        var staticMatch = __webpack_require__(10).match, dynamicMatch = "undefined" != typeof window ? window.matchMedia : null;
+        var staticMatch = __webpack_require__(11).match;
         module.exports = matchMedia;
     }, function(module, exports, __webpack_require__) {
         "use strict";
