@@ -69,7 +69,13 @@ class MediaQuery extends React.Component {
 
     this.removeMql()
 
-    const node = ReactDOM.findDOMNode(this)
+    let node;
+    // Wrap ReactDOM.findDOMNode(this) in a try/catch to prevent React erroring out
+    try {
+      node = ReactDOM.findDOMNode(this)
+    } catch (e) {
+      // no op
+    }
     const targetWindow = node && node.ownerDocument.defaultView
     this._mql = matchMedia(this.query, values, forceStatic, props.targetWindow || targetWindow)
     this._mql.addListener(this.updateMatches)

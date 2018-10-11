@@ -213,7 +213,11 @@
                     props.values && (values = Object.keys(props.values).reduce(function(result, key) {
                         return result[(0, _hyphenateStyleName2.default)(key)] = props.values[key], result;
                     }, {}), 0 !== Object.keys(values).length && (forceStatic = !0)), this.removeMql();
-                    var node = _reactDom2.default.findDOMNode(this), targetWindow = node && node.ownerDocument.defaultView;
+                    var node = void 0;
+                    try {
+                        node = _reactDom2.default.findDOMNode(this);
+                    } catch (e) {}
+                    var targetWindow = node && node.ownerDocument.defaultView;
                     this._mql = (0, _matchMedia2.default)(this.query, values, forceStatic, props.targetWindow || targetWindow), 
                     this._mql.addListener(this.updateMatches), this.updateMatches();
                 }
