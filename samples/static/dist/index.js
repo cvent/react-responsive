@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.sample = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/contra/Projects/react-responsive/node_modules/css-mediaquery/index.js":[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.sample = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw (f.code="MODULE_NOT_FOUND", f)}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/contra/Projects/react-responsive/node_modules/css-mediaquery/index.js":[function(require,module,exports){
 /*
 Copyright (c) 2014, Yahoo! Inc. All rights reserved.
 Copyrights licensed under the New BSD License.
@@ -1326,7 +1326,7 @@ var ReactClassInterface = {
    *
    * @optional
    */
-  componentWillMount: SpecPolicy.DEFINE_MANY,
+  UNSAFE_componentWillMount: SpecPolicy.DEFINE_MANY,
 
   /**
    * Invoked when the component has been mounted and has a DOM representation.
@@ -1359,7 +1359,7 @@ var ReactClassInterface = {
    * @param {object} nextProps
    * @optional
    */
-  componentWillReceiveProps: SpecPolicy.DEFINE_MANY,
+  UNSAFE_componentWillReceiveProps: SpecPolicy.DEFINE_MANY,
 
   /**
    * Invoked while deciding if the component should be updated as a result of
@@ -1398,7 +1398,7 @@ var ReactClassInterface = {
    * @param {ReactReconcileTransaction} transaction
    * @optional
    */
-  componentWillUpdate: SpecPolicy.DEFINE_MANY,
+  UNSAFE_componentWillUpdate: SpecPolicy.DEFINE_MANY,
 
   /**
    * Invoked when the component's DOM representation has been updated.
@@ -4297,11 +4297,11 @@ var mq = React.createClass({
     };
   },
 
-  componentWillMount: function(){
+  UNSAFE_componentWillMount: function(){
     this.updateQuery(this.props);
   },
 
-  componentWillReceiveProps: function(props){
+  UNSAFE_componentWillReceiveProps: function(props){
     this.updateQuery(props);
   },
 
@@ -4524,7 +4524,7 @@ module.exports = function(obj){
   return join(rules);
 };
 
-},{"./mediaQuery":"/Users/contra/Projects/react-responsive/src/mediaQuery.js","hyphenate-style-name":"/Users/contra/Projects/react-responsive/node_modules/hyphenate-style-name/index.js"}]},{},["/Users/contra/Projects/react-responsive/samples/static/src/index.jsx"])("/Users/contra/Projects/react-responsive/samples/static/src/index.jsx")
+},{"./mediaQuery":"/Users/contra/Projects/react-responsive/src/mediaQuery.js","hyphenate-style-name":"/Users/contra/Projects/react-responsive/node_modules/hyphenate-style-name/index.js"}]},{},["/Users/contra/Projects/react-responsive/samples/static/src/index.jsx"])("/Users/contra/Projects/react-responsive/samples/static/src/index.jsx");
 });
 
 
