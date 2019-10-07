@@ -33,7 +33,7 @@ class MediaQuery extends React.Component {
 
   state = { matches: false }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.updateQuery(this.props)
   }
 
@@ -41,7 +41,7 @@ class MediaQuery extends React.Component {
     this.updateQuery(this.props)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.updateQuery(nextProps)
   }
 
@@ -82,7 +82,7 @@ class MediaQuery extends React.Component {
     this.updateMatches()
   }
 
-  componentWillUpdate(_, nextState) {
+  UNSAFE_componentWillUpdate(_, nextState) {
     if(this.props.onBeforeChange && this.state.matches !== nextState.matches) {
       this.props.onBeforeChange(this.state.matches)
     }

@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.sample = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.sample = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw (f.code="MODULE_NOT_FOUND", f)}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Copyright (c) 2014, Yahoo! Inc. All rights reserved.
 Copyrights licensed under the New BSD License.
@@ -471,7 +471,7 @@ function hasArrayNature(obj) {
     // not null/false
     !!obj && (
     // arrays are objects, NodeLists are functions in Safari
-    typeof obj == 'object' || typeof obj == 'function') &&
+    (typeof obj == 'object' || typeof obj == 'function')) &&
     // quacks like an array
     'length' in obj &&
     // not window
@@ -480,11 +480,10 @@ function hasArrayNature(obj) {
     // a 'select' element has 'length' and 'item' properties on IE8
     typeof obj.nodeType != 'number' && (
     // a real array
-    Array.isArray(obj) ||
+    (Array.isArray(obj) ||
     // arguments
-    'callee' in obj ||
-    // HTMLCollection/NodeList
-    'item' in obj)
+    'callee' in obj || // HTMLCollection/NodeList
+    'item' in obj))
   );
 }
 
@@ -7893,13 +7892,13 @@ var ReactCompositeComponentMixin = {
       debugID = this._debugID;
     }
 
-    if (inst.componentWillMount) {
+    if (inst.UNSAFE_componentWillMount) {
       if (process.env.NODE_ENV !== 'production') {
         measureLifeCyclePerf(function () {
-          return inst.componentWillMount();
+          return inst.UNSAFE_componentWillMount();
         }, debugID, 'componentWillMount');
       } else {
-        inst.componentWillMount();
+        inst.UNSAFE_componentWillMount();
       }
       // When mounting, calls to `setState` by `componentWillMount` will set
       // `this._pendingStateQueue` without triggering a re-render.
@@ -8154,13 +8153,13 @@ var ReactCompositeComponentMixin = {
     // An update here will schedule an update but immediately set
     // _pendingStateQueue which will ensure that any state updates gets
     // immediately reconciled instead of waiting for the next batch.
-    if (willReceive && inst.componentWillReceiveProps) {
+    if (willReceive && inst.UNSAFE_componentWillReceiveProps) {
       if (process.env.NODE_ENV !== 'production') {
         measureLifeCyclePerf(function () {
-          return inst.componentWillReceiveProps(nextProps, nextContext);
+          return inst.UNSAFE_componentWillReceiveProps(nextProps, nextContext);
         }, this._debugID, 'componentWillReceiveProps');
       } else {
-        inst.componentWillReceiveProps(nextProps, nextContext);
+        inst.UNSAFE_componentWillReceiveProps(nextProps, nextContext);
       }
     }
 
@@ -8254,13 +8253,13 @@ var ReactCompositeComponentMixin = {
       prevContext = inst.context;
     }
 
-    if (inst.componentWillUpdate) {
+    if (inst.UNSAFE_componentWillUpdate) {
       if (process.env.NODE_ENV !== 'production') {
         measureLifeCyclePerf(function () {
-          return inst.componentWillUpdate(nextProps, nextState, nextContext);
+          return inst.UNSAFE_componentWillUpdate(nextProps, nextState, nextContext);
         }, this._debugID, 'componentWillUpdate');
       } else {
-        inst.componentWillUpdate(nextProps, nextState, nextContext);
+        inst.UNSAFE_componentWillUpdate(nextProps, nextState, nextContext);
       }
     }
 
@@ -8377,7 +8376,7 @@ var ReactCompositeComponentMixin = {
     }
     !(
     // TODO: An `isValidNode` function would probably be more appropriate
-    renderedComponent === null || renderedComponent === false || ReactElement.isValidElement(renderedComponent)) ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s.render(): A valid React element (or null) must be returned. You may have returned undefined, an array or some other invalid object.', this.getName() || 'ReactCompositeComponent') : _prodInvariant('109', this.getName() || 'ReactCompositeComponent') : void 0;
+    (renderedComponent === null || renderedComponent === false || ReactElement.isValidElement(renderedComponent))) ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s.render(): A valid React element (or null) must be returned. You may have returned undefined, an array or some other invalid object.', this.getName() || 'ReactCompositeComponent') : _prodInvariant('109', this.getName() || 'ReactCompositeComponent') : void 0;
 
     return renderedComponent;
   },
@@ -21277,7 +21276,7 @@ module.exports = function(obj){
   return join(rules);
 };
 
-},{"./mediaQuery":177,"hyphenate-style-name":27}]},{},[175])(175)
+},{"./mediaQuery":177,"hyphenate-style-name":27}]},{},[175])(175);
 });
 
 
