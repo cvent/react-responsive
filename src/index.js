@@ -76,7 +76,7 @@ class MediaQuery extends React.Component {
     } catch (e) {
       // no op
     }
-    const targetWindow = node && node.ownerDocument.defaultView
+    const targetWindow = node && node.ownerDocument && node.ownerDocument.defaultView
     this._mql = matchMedia(this.query, values, forceStatic, props.targetWindow || targetWindow)
     this._mql.addListener(this.updateMatches)
     this.updateMatches()
