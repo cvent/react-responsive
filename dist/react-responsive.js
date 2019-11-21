@@ -1,6 +1,6 @@
 !function(root, factory) {
     "object" == typeof exports && "object" == typeof module ? module.exports = factory(require("react"), require("react-dom")) : "function" == typeof define && define.amd ? define([ "react", "react-dom" ], factory) : "object" == typeof exports ? exports.MediaQuery = factory(require("react"), require("react-dom")) : root.MediaQuery = factory(root.react, root["react-dom"]);
-}("undefined" != typeof self ? self : this, function(__WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_7__) {
+}("undefined" != typeof self ? self : this, function(__WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_6__) {
     return function(modules) {
         function __webpack_require__(moduleId) {
             if (installedModules[moduleId]) return installedModules[moduleId].exports;
@@ -29,31 +29,22 @@
             return __webpack_require__.d(getter, "a", getter), getter;
         }, __webpack_require__.o = function(object, property) {
             return Object.prototype.hasOwnProperty.call(object, property);
-        }, __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 5);
+        }, __webpack_require__.p = "", __webpack_require__(__webpack_require__.s = 4);
     }([ function(module, exports, __webpack_require__) {
-        var ReactIs = __webpack_require__(1);
-        module.exports = __webpack_require__(9)(ReactIs.isElement, !0);
-    }, function(module, exports, __webpack_require__) {
-        "use strict";
-        module.exports = __webpack_require__(8);
+        var REACT_ELEMENT_TYPE = "function" == typeof Symbol && Symbol.for && Symbol.for("react.element") || 60103, isValidElement = function(object) {
+            return "object" == typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
+        };
+        module.exports = __webpack_require__(7)(isValidElement, !0);
     }, function(module, exports, __webpack_require__) {
         "use strict";
         module.exports = "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED";
-    }, function(module, __webpack_exports__, __webpack_require__) {
+    }, function(module, exports, __webpack_require__) {
         "use strict";
-        function toHyphenLower(match) {
-            return "-" + match.toLowerCase();
+        function hyphenateStyleName(string) {
+            return string in cache ? cache[string] : cache[string] = string.replace(uppercasePattern, "-$&").toLowerCase().replace(msPattern, "-ms-");
         }
-        function hyphenateStyleName(name) {
-            if (cache.hasOwnProperty(name)) return cache[name];
-            var hName = name.replace(uppercasePattern, toHyphenLower);
-            return cache[name] = msPattern.test(hName) ? "-" + hName : hName;
-        }
-        Object.defineProperty(__webpack_exports__, "__esModule", {
-            value: !0
-        });
         var uppercasePattern = /[A-Z]/g, msPattern = /^ms-/, cache = {};
-        __webpack_exports__.default = hyphenateStyleName;
+        module.exports = hyphenateStyleName;
     }, function(module, exports, __webpack_require__) {
         "use strict";
         Object.defineProperty(exports, "__esModule", {
@@ -174,7 +165,7 @@
                 for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
             }
             return target;
-        }, _react = __webpack_require__(6), _react2 = _interopRequireDefault(_react), _reactDom = __webpack_require__(7), _reactDom2 = _interopRequireDefault(_reactDom), _propTypes = __webpack_require__(0), _propTypes2 = _interopRequireDefault(_propTypes), _matchMedia = __webpack_require__(12), _matchMedia2 = _interopRequireDefault(_matchMedia), _hyphenateStyleName = __webpack_require__(3), _hyphenateStyleName2 = _interopRequireDefault(_hyphenateStyleName), _mediaQuery = __webpack_require__(4), _mediaQuery2 = _interopRequireDefault(_mediaQuery), _toQuery = __webpack_require__(14), _toQuery2 = _interopRequireDefault(_toQuery), defaultTypes = {
+        }, _react = __webpack_require__(5), _react2 = _interopRequireDefault(_react), _reactDom = __webpack_require__(6), _reactDom2 = _interopRequireDefault(_reactDom), _propTypes = __webpack_require__(0), _propTypes2 = _interopRequireDefault(_propTypes), _matchMedia = __webpack_require__(10), _matchMedia2 = _interopRequireDefault(_matchMedia), _hyphenateStyleName = __webpack_require__(2), _hyphenateStyleName2 = _interopRequireDefault(_hyphenateStyleName), _mediaQuery = __webpack_require__(3), _mediaQuery2 = _interopRequireDefault(_mediaQuery), _toQuery = __webpack_require__(12), _toQuery2 = _interopRequireDefault(_toQuery), defaultTypes = {
             component: _propTypes2.default.node,
             query: _propTypes2.default.string,
             values: _propTypes2.default.shape(_mediaQuery2.default.matchers),
@@ -226,7 +217,7 @@
                     try {
                         node = _reactDom2.default.findDOMNode(this);
                     } catch (e) {}
-                    var targetWindow = node && node.ownerDocument.defaultView;
+                    var targetWindow = node && node.ownerDocument && node.ownerDocument.defaultView;
                     this._mql = (0, _matchMedia2.default)(this.query, values, forceStatic, props.targetWindow || targetWindow), 
                     this._mql.addListener(this.updateMatches), this.updateMatches();
                 }
@@ -259,129 +250,15 @@
             values: {}
         }, exports.default = MediaQuery, exports.toQuery = _toQuery2.default;
     }, function(module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
+        module.exports = __WEBPACK_EXTERNAL_MODULE_5__;
     }, function(module, exports) {
-        module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
-    }, function(module, exports, __webpack_require__) {
-        "use strict";
-        !function() {
-            function isValidElementType(type) {
-                return "string" == typeof type || "function" == typeof type || type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || "object" == typeof type && null !== type && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE);
-            }
-            function typeOf(object) {
-                if ("object" == typeof object && null !== object) {
-                    var $$typeof = object.$$typeof;
-                    switch ($$typeof) {
-                      case REACT_ELEMENT_TYPE:
-                        var type = object.type;
-                        switch (type) {
-                          case REACT_ASYNC_MODE_TYPE:
-                          case REACT_CONCURRENT_MODE_TYPE:
-                          case REACT_FRAGMENT_TYPE:
-                          case REACT_PROFILER_TYPE:
-                          case REACT_STRICT_MODE_TYPE:
-                          case REACT_SUSPENSE_TYPE:
-                            return type;
-
-                          default:
-                            var $$typeofType = type && type.$$typeof;
-                            switch ($$typeofType) {
-                              case REACT_CONTEXT_TYPE:
-                              case REACT_FORWARD_REF_TYPE:
-                              case REACT_PROVIDER_TYPE:
-                                return $$typeofType;
-
-                              default:
-                                return $$typeof;
-                            }
-                        }
-
-                      case REACT_LAZY_TYPE:
-                      case REACT_MEMO_TYPE:
-                      case REACT_PORTAL_TYPE:
-                        return $$typeof;
-                    }
-                }
-            }
-            function isAsyncMode(object) {
-                return hasWarnedAboutDeprecatedIsAsyncMode || (hasWarnedAboutDeprecatedIsAsyncMode = !0, 
-                lowPriorityWarningWithoutStack$1(!1, "The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 17+. Update your code to use ReactIs.isConcurrentMode() instead. It has the exact same API.")), 
-                isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
-            }
-            function isConcurrentMode(object) {
-                return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
-            }
-            function isContextConsumer(object) {
-                return typeOf(object) === REACT_CONTEXT_TYPE;
-            }
-            function isContextProvider(object) {
-                return typeOf(object) === REACT_PROVIDER_TYPE;
-            }
-            function isElement(object) {
-                return "object" == typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
-            }
-            function isForwardRef(object) {
-                return typeOf(object) === REACT_FORWARD_REF_TYPE;
-            }
-            function isFragment(object) {
-                return typeOf(object) === REACT_FRAGMENT_TYPE;
-            }
-            function isLazy(object) {
-                return typeOf(object) === REACT_LAZY_TYPE;
-            }
-            function isMemo(object) {
-                return typeOf(object) === REACT_MEMO_TYPE;
-            }
-            function isPortal(object) {
-                return typeOf(object) === REACT_PORTAL_TYPE;
-            }
-            function isProfiler(object) {
-                return typeOf(object) === REACT_PROFILER_TYPE;
-            }
-            function isStrictMode(object) {
-                return typeOf(object) === REACT_STRICT_MODE_TYPE;
-            }
-            function isSuspense(object) {
-                return typeOf(object) === REACT_SUSPENSE_TYPE;
-            }
-            Object.defineProperty(exports, "__esModule", {
-                value: !0
-            });
-            var hasSymbol = "function" == typeof Symbol && Symbol.for, REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for("react.element") : 60103, REACT_PORTAL_TYPE = hasSymbol ? Symbol.for("react.portal") : 60106, REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for("react.fragment") : 60107, REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for("react.strict_mode") : 60108, REACT_PROFILER_TYPE = hasSymbol ? Symbol.for("react.profiler") : 60114, REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for("react.provider") : 60109, REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for("react.context") : 60110, REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for("react.async_mode") : 60111, REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for("react.concurrent_mode") : 60111, REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for("react.forward_ref") : 60112, REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for("react.suspense") : 60113, REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for("react.suspense_list") : 60120, REACT_MEMO_TYPE = hasSymbol ? Symbol.for("react.memo") : 60115, REACT_LAZY_TYPE = hasSymbol ? Symbol.for("react.lazy") : 60116, REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for("react.fundamental") : 60117, REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for("react.responder") : 60118, REACT_SCOPE_TYPE = hasSymbol ? Symbol.for("react.scope") : 60119, lowPriorityWarningWithoutStack = function() {}, printWarning = function(format) {
-                for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) args[_key - 1] = arguments[_key];
-                var argIndex = 0, message = "Warning: " + format.replace(/%s/g, function() {
-                    return args[argIndex++];
-                });
-                "undefined" != typeof console && console.warn(message);
-                try {
-                    throw new Error(message);
-                } catch (x) {}
-            };
-            lowPriorityWarningWithoutStack = function(condition, format) {
-                if (void 0 === format) throw new Error("`lowPriorityWarningWithoutStack(condition, format, ...args)` requires a warning message argument");
-                if (!condition) {
-                    for (var _len2 = arguments.length, args = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) args[_key2 - 2] = arguments[_key2];
-                    printWarning.apply(void 0, [ format ].concat(args));
-                }
-            };
-            var lowPriorityWarningWithoutStack$1 = lowPriorityWarningWithoutStack, AsyncMode = REACT_ASYNC_MODE_TYPE, ConcurrentMode = REACT_CONCURRENT_MODE_TYPE, ContextConsumer = REACT_CONTEXT_TYPE, ContextProvider = REACT_PROVIDER_TYPE, Element = REACT_ELEMENT_TYPE, ForwardRef = REACT_FORWARD_REF_TYPE, Fragment = REACT_FRAGMENT_TYPE, Lazy = REACT_LAZY_TYPE, Memo = REACT_MEMO_TYPE, Portal = REACT_PORTAL_TYPE, Profiler = REACT_PROFILER_TYPE, StrictMode = REACT_STRICT_MODE_TYPE, Suspense = REACT_SUSPENSE_TYPE, hasWarnedAboutDeprecatedIsAsyncMode = !1;
-            exports.typeOf = typeOf, exports.AsyncMode = AsyncMode, exports.ConcurrentMode = ConcurrentMode, 
-            exports.ContextConsumer = ContextConsumer, exports.ContextProvider = ContextProvider, 
-            exports.Element = Element, exports.ForwardRef = ForwardRef, exports.Fragment = Fragment, 
-            exports.Lazy = Lazy, exports.Memo = Memo, exports.Portal = Portal, exports.Profiler = Profiler, 
-            exports.StrictMode = StrictMode, exports.Suspense = Suspense, exports.isValidElementType = isValidElementType, 
-            exports.isAsyncMode = isAsyncMode, exports.isConcurrentMode = isConcurrentMode, 
-            exports.isContextConsumer = isContextConsumer, exports.isContextProvider = isContextProvider, 
-            exports.isElement = isElement, exports.isForwardRef = isForwardRef, exports.isFragment = isFragment, 
-            exports.isLazy = isLazy, exports.isMemo = isMemo, exports.isPortal = isPortal, exports.isProfiler = isProfiler, 
-            exports.isStrictMode = isStrictMode, exports.isSuspense = isSuspense;
-        }();
+        module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
     }, function(module, exports, __webpack_require__) {
         "use strict";
         function emptyFunctionThatReturnsNull() {
             return null;
         }
-        var ReactIs = __webpack_require__(1), assign = __webpack_require__(10), ReactPropTypesSecret = __webpack_require__(2), checkPropTypes = __webpack_require__(11), has = Function.call.bind(Object.prototype.hasOwnProperty), printWarning = function() {};
+        var assign = __webpack_require__(8), ReactPropTypesSecret = __webpack_require__(1), checkPropTypes = __webpack_require__(9), printWarning = function() {};
         printWarning = function(text) {
             var message = "Warning: " + text;
             "undefined" != typeof console && console.error(message);
@@ -454,12 +331,9 @@
             function createEnumTypeChecker(expectedValues) {
                 function validate(props, propName, componentName, location, propFullName) {
                     for (var propValue = props[propName], i = 0; i < expectedValues.length; i++) if (is(propValue, expectedValues[i])) return null;
-                    var valuesString = JSON.stringify(expectedValues, function(key, value) {
-                        return "symbol" === getPreciseType(value) ? String(value) : value;
-                    });
-                    return new PropTypeError("Invalid " + location + " `" + propFullName + "` of value `" + String(propValue) + "` supplied to `" + componentName + "`, expected one of " + valuesString + ".");
+                    return new PropTypeError("Invalid " + location + " `" + propFullName + "` of value `" + propValue + "` supplied to `" + componentName + "`, expected one of " + JSON.stringify(expectedValues) + ".");
                 }
-                return Array.isArray(expectedValues) ? createChainableTypeChecker(validate) : (printWarning(arguments.length > 1 ? "Invalid arguments supplied to oneOf, expected an array, got " + arguments.length + " arguments. A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z])." : "Invalid argument supplied to oneOf, expected an array."), 
+                return Array.isArray(expectedValues) ? createChainableTypeChecker(validate) : (printWarning("Invalid argument supplied to oneOf, expected an instance of array."), 
                 emptyFunctionThatReturnsNull);
             }
             function createObjectOfTypeChecker(typeChecker) {
@@ -467,7 +341,7 @@
                     if ("function" != typeof typeChecker) return new PropTypeError("Property `" + propFullName + "` of component `" + componentName + "` has invalid PropType notation inside objectOf.");
                     var propValue = props[propName], propType = getPropType(propValue);
                     if ("object" !== propType) return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type `" + propType + "` supplied to `" + componentName + "`, expected an object.");
-                    for (var key in propValue) if (has(propValue, key)) {
+                    for (var key in propValue) if (propValue.hasOwnProperty(key)) {
                         var error = typeChecker(propValue, key, componentName, location, propFullName + "." + key, ReactPropTypesSecret);
                         if (error instanceof Error) return error;
                     }
@@ -550,7 +424,7 @@
                 }
             }
             function isSymbol(propType, propValue) {
-                return "symbol" === propType || !!propValue && ("Symbol" === propValue["@@toStringTag"] || "function" == typeof Symbol && propValue instanceof Symbol);
+                return "symbol" === propType || ("Symbol" === propValue["@@toStringTag"] || "function" == typeof Symbol && propValue instanceof Symbol);
             }
             function getPropType(propValue) {
                 var propType = typeof propValue;
@@ -606,16 +480,6 @@
                     }
                     return createChainableTypeChecker(validate);
                 }(),
-                elementType: function() {
-                    function validate(props, propName, componentName, location, propFullName) {
-                        var propValue = props[propName];
-                        if (!ReactIs.isValidElementType(propValue)) {
-                            return new PropTypeError("Invalid " + location + " `" + propFullName + "` of type `" + getPropType(propValue) + "` supplied to `" + componentName + "`, expected a single ReactElement type.");
-                        }
-                        return null;
-                    }
-                    return createChainableTypeChecker(validate);
-                }(),
                 instanceOf: createInstanceTypeChecker,
                 node: function() {
                     function validate(props, propName, componentName, location, propFullName) {
@@ -630,8 +494,7 @@
                 exact: createStrictShapeTypeChecker
             };
             return PropTypeError.prototype = Error.prototype, ReactPropTypes.checkPropTypes = checkPropTypes, 
-            ReactPropTypes.resetWarningCache = checkPropTypes.resetWarningCache, ReactPropTypes.PropTypes = ReactPropTypes, 
-            ReactPropTypes;
+            ReactPropTypes.PropTypes = ReactPropTypes, ReactPropTypes;
         };
     }, function(module, exports, __webpack_require__) {
         "use strict";
@@ -675,7 +538,7 @@ object-assign
     }, function(module, exports, __webpack_require__) {
         "use strict";
         function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
-            for (var typeSpecName in typeSpecs) if (has(typeSpecs, typeSpecName)) {
+            for (var typeSpecName in typeSpecs) if (typeSpecs.hasOwnProperty(typeSpecName)) {
                 var error;
                 try {
                     if ("function" != typeof typeSpecs[typeSpecName]) {
@@ -694,15 +557,13 @@ object-assign
                 }
             }
         }
-        var printWarning = function() {}, ReactPropTypesSecret = __webpack_require__(2), loggedTypeFailures = {}, has = Function.call.bind(Object.prototype.hasOwnProperty);
+        var printWarning = function() {}, ReactPropTypesSecret = __webpack_require__(1), loggedTypeFailures = {};
         printWarning = function(text) {
             var message = "Warning: " + text;
             "undefined" != typeof console && console.error(message);
             try {
                 throw new Error(message);
             } catch (x) {}
-        }, checkPropTypes.resetWarningCache = function() {
-            loggedTypeFailures = {};
         }, module.exports = checkPropTypes;
     }, function(module, exports, __webpack_require__) {
         "use strict";
@@ -729,7 +590,7 @@ object-assign
         function matchMedia(query, values, forceStatic, targetWindow) {
             return new Mql(query, values, forceStatic, targetWindow);
         }
-        var staticMatch = __webpack_require__(13).match;
+        var staticMatch = __webpack_require__(11).match;
         module.exports = matchMedia;
     }, function(module, exports, __webpack_require__) {
         "use strict";
@@ -866,7 +727,7 @@ object-assign
                 null != v && rules.push(keyVal(k, v));
             }), join(rules);
         };
-        var _hyphenateStyleName = __webpack_require__(3), _hyphenateStyleName2 = _interopRequireDefault(_hyphenateStyleName), _mediaQuery = __webpack_require__(4), _mediaQuery2 = _interopRequireDefault(_mediaQuery), negate = function(cond) {
+        var _hyphenateStyleName = __webpack_require__(2), _hyphenateStyleName2 = _interopRequireDefault(_hyphenateStyleName), _mediaQuery = __webpack_require__(3), _mediaQuery2 = _interopRequireDefault(_mediaQuery), negate = function(cond) {
             return "not " + cond;
         };
         module.exports = exports.default;
